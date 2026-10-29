@@ -17,6 +17,8 @@ cd WiiU-Pro-DSU
 open "build/WiiU Pro.app"
 ```
 
+La [dernière release GitHub](https://github.com/Demoncoeur/retro-rewind-macos-dsu/releases/latest) inclut aussi `WiiU Pro.app` dans une archive ZIP pour les Mac Apple Silicon. L’app est signée localement, sans notarisation Apple; au premier lancement, macOS peut demander de confirmer l’ouverture via clic droit → **Ouvrir**.
+
 L’application résultante se trouve dans `WiiU-Pro-DSU/build/WiiU Pro.app`. Elle inclut l’icône Wii U Pro et le script RetroRewind. Gardez-la ouverte pendant le jeu.
 
 Dans l’app, le bouton **Modifier et compiler Retro Rewind** applique le patch au BuildWorkspace local de WiiCompiled, sauvegarde d’abord les fichiers source d’origine, puis crée l’application Retro Rewind modifiée dans un nouveau dossier du Bureau. Le journal de WiiU Pro affiche le résultat de la commande.

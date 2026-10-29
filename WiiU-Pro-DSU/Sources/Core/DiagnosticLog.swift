@@ -8,8 +8,18 @@ enum DiagnosticLog {
         let project = Bundle.main.url(forResource: "project-path", withExtension: "txt")
             .flatMap { try? String(contentsOf: $0, encoding: .utf8) }
             .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-        let root = env.map { URL(fileURLWithPath: $0, isDirectory: true) }
-            ?? URL(fileURLWithPath: project ?? FileManager.default.currentDirectoryPath).appendingPathComponent("logs")
+        let appSupport = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+            .appendingPathComponent("WiiU Pro", isDirectory: true)
+            .appendingPathComponent("logs", isDirectory: true)
+        let root: URL
+        if let env {
+            root = URL(fileURLWithPath: env, isDirectory: true)
+        } else if project == "WIIUPRO_APP_SUPPORT" {
+            root = appSupport
+        } else {
+            root = URL(fileURLWithPath: project ?? FileManager.default.currentDirectoryPath, isDirectory: true)
+                .appendingPathComponent("logs", isDirectory: true)
+        }
         let stamp = ISO8601DateFormatter().string(from: Date()).replacingOccurrences(of: ":", with: "-")
         return root.appendingPathComponent("sync-\(stamp)-\(ProcessInfo.processInfo.processIdentifier).log")
     }()

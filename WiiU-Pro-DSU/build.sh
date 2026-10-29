@@ -18,7 +18,11 @@ rm -rf "$APP"
 mkdir -p "$APP/Contents/MacOS"
 cp AppInfo.plist "$APP/Contents/Info.plist"
 mkdir -p "$APP/Contents/Resources"
-pwd > "$APP/Contents/Resources/project-path.txt"
+if [ "${WIIUPRO_PORTABLE_BUILD:-0}" = "1" ]; then
+    echo "WIIUPRO_APP_SUPPORT" > "$APP/Contents/Resources/project-path.txt"
+else
+    pwd > "$APP/Contents/Resources/project-path.txt"
+fi
 cp ../patch-and-build.sh "$APP/Contents/Resources/patch-and-build.sh"
 swiftc -module-cache-path build/ModuleCache -framework AppKit \
     Resources/GenerateAppIcon.swift -o build/generate-app-icon
@@ -28,5 +32,6 @@ swiftc -O -swift-version 5 -parse-as-library -module-cache-path build/ModuleCach
     -framework IOBluetooth -framework SwiftUI -framework AppKit
 xattr -cr "$APP"
 codesign --force --sign - "$APP"
+xattr -d com.apple.FinderInfo "$APP" 2>/dev/null || true
 
 echo "OK : build/wiiu-pro-dsu et $APP"
