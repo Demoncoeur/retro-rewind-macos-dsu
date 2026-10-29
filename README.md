@@ -1,3 +1,4 @@
+
 # Retro Rewind macOS DSU patch
 
 This helper applies the Wii U Pro DSU input fix to a local WiiCompiled build workspace and produces a patched `RetroRewind.app` for macOS.
@@ -21,7 +22,7 @@ This repository contains only the patching/build script and documentation. It do
 Download this repository, open Terminal in its folder, then run:
 
 ```bash
-./patch-and-build.sh
+bash ./patch-and-build.sh
 ```
 
 The helper uses `~/Library/Application Support/WiiCompiled/BuildWorkspace` by default. It backs up the two source files before changing them under:
@@ -35,13 +36,13 @@ It rebuilds the `RetroRewind` target and creates a newly named folder on the Des
 To use a non-default workspace or output folder:
 
 ```bash
-./patch-and-build.sh --workspace "/path/to/BuildWorkspace" --output-dir "$HOME/Desktop/RetroRewind-DSU"
+bash ./patch-and-build.sh --workspace "/path/to/BuildWorkspace" --output-dir "$HOME/Desktop/RetroRewind-DSU"
 ```
 
 To apply the source changes without compiling:
 
 ```bash
-./patch-and-build.sh --patch-only
+bash ./patch-and-build.sh --patch-only
 ```
 
 The script is safe to rerun: already patched source files are left as they are, and the build still runs unless `--patch-only` is supplied.
@@ -64,5 +65,5 @@ Le script applique le correctif DSU au BuildWorkspace local de WiiCompiled, sauv
 Exécuter `bash ./patch-and-build.sh` dans Terminal. Pour choisir un autre BuildWorkspace :
 
 ```bash
-./patch-and-build.sh --workspace "/chemin/vers/BuildWorkspace"
+bash ./patch-and-build.sh --workspace "/chemin/vers/BuildWorkspace"
 ```
