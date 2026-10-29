@@ -74,7 +74,7 @@ final class Bridge {
     }
 
     private func addController(address: String?, slot: Int, ignoringAddresses: Set<String>, searchImmediately: Bool = false) {
-        let controller = ProController(address: address, ignoringAddresses: ignoringAddresses, searchImmediately: searchImmediately)
+        let controller = ProController(address: address, playerSlot: slot, ignoringAddresses: ignoringAddresses, searchImmediately: searchImmediately)
         controller.verbose = verbose
         controller.onConnection = { [weak self] connected, address in
             self?.setConnected(connected, address: address, slot: slot)

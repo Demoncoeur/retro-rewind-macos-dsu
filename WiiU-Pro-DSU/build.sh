@@ -19,6 +19,10 @@ mkdir -p "$APP/Contents/MacOS"
 cp AppInfo.plist "$APP/Contents/Info.plist"
 mkdir -p "$APP/Contents/Resources"
 pwd > "$APP/Contents/Resources/project-path.txt"
+cp ../patch-and-build.sh "$APP/Contents/Resources/patch-and-build.sh"
+swiftc -module-cache-path build/ModuleCache -framework AppKit \
+    Resources/GenerateAppIcon.swift -o build/generate-app-icon
+build/generate-app-icon "$APP/Contents/Resources/AppIcon.icns"
 swiftc -O -swift-version 5 -parse-as-library -module-cache-path build/ModuleCache \
     -o "$APP/Contents/MacOS/WiiUPro" Sources/Core/*.swift Sources/App/*.swift \
     -framework IOBluetooth -framework SwiftUI -framework AppKit

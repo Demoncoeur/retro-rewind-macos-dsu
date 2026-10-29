@@ -17,7 +17,13 @@ cd WiiU-Pro-DSU
 open "build/WiiU Pro.app"
 ```
 
-L’application résultante se trouve dans `WiiU-Pro-DSU/build/WiiU Pro.app`. Gardez-la ouverte pendant le jeu. Les instructions détaillées et la configuration des journaux sont dans [`WiiU-Pro-DSU/README.md`](WiiU-Pro-DSU/README.md).
+L’application résultante se trouve dans `WiiU-Pro-DSU/build/WiiU Pro.app`. Elle inclut l’icône Wii U Pro et le script RetroRewind. Gardez-la ouverte pendant le jeu.
+
+Dans l’app, le bouton **Modifier et compiler Retro Rewind** applique le patch au BuildWorkspace local de WiiCompiled, sauvegarde d’abord les fichiers source d’origine, puis crée l’application Retro Rewind modifiée dans un nouveau dossier du Bureau. Le journal de WiiU Pro affiche le résultat de la commande.
+
+À la connexion, chaque manette allume le voyant de son port DSU : joueur 1, 2, 3 ou 4. Pour une deuxième manette, cliquez sur **Ajouter une manette** puis appuyez sur SYNC.
+
+Les instructions détaillées et la configuration des journaux sont dans [`WiiU-Pro-DSU/README.md`](WiiU-Pro-DSU/README.md).
 
 ## Préparer Retro Rewind
 

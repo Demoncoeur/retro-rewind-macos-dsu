@@ -14,7 +14,11 @@ cd WiiU-Pro-DSU
 open "build/WiiU Pro.app"
 ```
 
-Le script produit l’application dans `build/WiiU Pro.app` et l’outil facultatif `build/wiiu-pro-dsu`. L’application enregistre un journal par lancement dans `logs/`. Elle nécessite l’autorisation Bluetooth et, pour le mode clavier/souris, l’autorisation Accessibilité dans Réglages Système.
+Le script produit l’application dans `build/WiiU Pro.app` et l’outil facultatif `build/wiiu-pro-dsu`. Il ajoute à l’app l’icône Wii U Pro et le script `patch-and-build.sh`. L’application enregistre un journal par lancement dans `logs/`. Elle nécessite l’autorisation Bluetooth et, pour le mode clavier/souris, l’autorisation Accessibilité dans Réglages Système.
+
+Dans l’app, **Modifier et compiler Retro Rewind** lance le patch intégré sur le BuildWorkspace local de WiiCompiled. Le script sauvegarde ses fichiers avant modification et compile une nouvelle app Retro Rewind sur le Bureau; la sortie s’affiche dans le journal de WiiU Pro.
+
+À la connexion, les voyants indiquent les ports DSU : voyant 1 pour le joueur 1, jusqu’au voyant 4 pour le joueur 4.
 
 Gardez WiiU Pro ouverte pendant Retro Rewind. Le client du jeu doit écouter le serveur DSU sur `127.0.0.1:26760`. Les journaux peuvent contenir des adresses Bluetooth : ne les publiez pas.
 

@@ -66,6 +66,7 @@ final class ProController: NSObject, IOBluetoothL2CAPChannelDelegate, IOBluetoot
     var onDeviceFound: ((FoundDevice) -> Void)?
     var verbose = false
 
+    private let playerSlot: Int
     private var fixedAddress: String?
     private let ignoredAddresses: Set<String>
     private let searchImmediately: Bool
@@ -87,7 +88,8 @@ final class ProController: NSObject, IOBluetoothL2CAPChannelDelegate, IOBluetoot
     private var generation = 0  // invalide les tâches différées d'une connexion précédente
     private var stopped = true
 
-    init(address: String?, ignoringAddresses: Set<String> = [], searchImmediately: Bool = false) {
+    init(address: String?, playerSlot: Int = 0, ignoringAddresses: Set<String> = [], searchImmediately: Bool = false) {
+        self.playerSlot = min(max(playerSlot, 0), 3)
         fixedAddress = address
         ignoredAddresses = Set(ignoringAddresses.map(Self.normalizedAddress))
         self.searchImmediately = searchImmediately
@@ -561,14 +563,17 @@ final class ProController: NSObject, IOBluetoothL2CAPChannelDelegate, IOBluetoot
     private static let setReportMode: [UInt8] = [0x12, 0x00, 0x34]  // boutons + 19 octets d’extension
 
     private func initialize() {
+        let led = UInt8(0x10 << playerSlot)
         let steps: [[UInt8]] = [
-            [0x11, 0x10],                         // LED joueur 1
+            [0x11, led],                          // voyant correspondant au port DSU
             Self.writeRegister(0xA400F0, 0x55),   // désactive le chiffrement de l’extension (1/2)
             Self.writeRegister(0xA400FB, 0x00),   // (2/2)
             [0x17, 0x04, 0xA4, 0x00, 0xFA, 0x00, 0x06],  // lecture de l’identifiant d’extension
             Self.setReportMode,
         ]
         let gen = generation
+        let ledHex = String(format: "%02X", led)
+        log("Voyant joueur \(playerSlot + 1) demandé (rapport 11 \(ledHex)).")
         for (i, step) in steps.enumerated() {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.15 * Double(i)) { [weak self] in
                 guard let self, self.generation == gen else { return }
