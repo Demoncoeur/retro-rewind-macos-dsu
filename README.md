@@ -1,4 +1,3 @@
-
 # Retro Rewind macOS DSU patch
 
 This helper applies the Wii U Pro DSU input fix to a local WiiCompiled build workspace and produces a patched `RetroRewind.app` for macOS.
